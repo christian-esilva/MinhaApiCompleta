@@ -3,6 +3,7 @@ using MinhaApp.Infraestrutura.Contexto;
 using MinhaApp.Negocios.Entidades;
 using MinhaApp.Negocios.Interfaces;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace MinhaApp.Infraestrutura.Repositorios
@@ -14,6 +15,11 @@ namespace MinhaApp.Infraestrutura.Repositorios
         public async Task<Fornecedor> ObterFornecedorEndereco(Guid id)
         {
             return await Contexto.Fornecedores.AsNoTracking().Include(e => e.Endereco).FirstOrDefaultAsync(e => e.Id == id);
+        }
+
+        public async Task<IEnumerable<Fornecedor>> ObterFornecedorEndereco()
+        {
+            return await Contexto.Fornecedores.AsNoTracking().Include(e => e.Endereco).ToListAsync();
         }
 
         public async Task<Fornecedor> ObterFornecedorProdutosEndereco(Guid id)
