@@ -4,15 +4,17 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using MinhaApp.API.Controllers;
 using MinhaApp.API.Extensoes;
 using MinhaApp.API.ViewModels;
 using MinhaApp.Negocios.Entidades;
 using MinhaApp.Negocios.Interfaces;
 
-namespace MinhaApp.API.Controllers
+namespace MinhaApp.API.V1.Controllers
 {
     [Authorize]
-    [Route("api/fornecedores")]
+    [ApiVersion("1.0")]
+    [Route("api/v{version:apiVersion}/fornecedores")]
     public class FornecedorController : MainController
     {
         private readonly IFornecedorRepositorio _fornecedorRepositorio;

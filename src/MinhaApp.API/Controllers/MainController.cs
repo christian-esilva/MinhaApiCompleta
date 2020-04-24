@@ -3,9 +3,7 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 using MinhaApp.Negocios.Interfaces;
 using MinhaApp.Negocios.Notificacoes;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace MinhaApp.API.Controllers
 {

@@ -5,13 +5,15 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MinhaApp.API.Controllers;
 using MinhaApp.API.ViewModels;
 using MinhaApp.Negocios.Entidades;
 using MinhaApp.Negocios.Interfaces;
 
-namespace MinhaApp.API.Controllers
+namespace MinhaApp.API.V1.Controllers
 {
-    [Route("api/produtos")]
+    [ApiVersion("1.0")]
+    [Route("api/v{version:apiVersion}/produtos")]
     [ApiController]
     public class ProdutoController : MainController
     {
