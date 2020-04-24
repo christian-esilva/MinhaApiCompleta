@@ -41,8 +41,8 @@ namespace MinhaApp.API.Configuracoes
 
         public static IApplicationBuilder UseSwaggerConfig(this IApplicationBuilder app, IApiVersionDescriptionProvider provider)
         {
-            //Esta linha resolve a autorização quando a api é pública e vocÊ fecha o acesso ao mundo externo..
-            //app.UseMiddleware<SwaggerAuthorizedMiddleware>();
+            // Esta linha resolve a autorização quando a api é pública e vocÊ fecha o acesso ao mundo externo..
+            // app.UseMiddleware<SwaggerAuthorizedMiddleware>();
 
             app.UseSwagger();
 
@@ -127,7 +127,6 @@ namespace MinhaApp.API.Configuracoes
             }
         }
     }
-
 
     public class SwaggerAuthorizedMiddleware
     {
