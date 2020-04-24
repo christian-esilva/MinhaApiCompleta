@@ -6,7 +6,7 @@ namespace MinhaApp.Infraestrutura.Contexto
 {
     public class ContextoApp : DbContext
     {
-        public ContextoApp(DbContextOptions opcoes) : base(opcoes)
+        public ContextoApp(DbContextOptions<ContextoApp> opcoes) : base(opcoes)
         {
 
         }

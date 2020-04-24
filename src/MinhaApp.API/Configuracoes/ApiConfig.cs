@@ -22,6 +22,15 @@ namespace MinhaApp.API.Configuracoes
                     .AllowAnyMethod()
                     .AllowAnyHeader()
                     .AllowCredentials());
+
+                options.AddPolicy("Production",
+                 builder =>
+                     builder
+                         .WithMethods("GET")
+                         .WithOrigins("http://desenvolvedor.io")
+                         .SetIsOriginAllowedToAllowWildcardSubdomains()
+                         //.WithHeaders(HeaderNames.ContentType, "x-custom-header")
+                         .AllowAnyHeader());
             });
 
             return services;
@@ -31,8 +40,6 @@ namespace MinhaApp.API.Configuracoes
         {
             app.UseHttpsRedirection();
             app.UseMvc();
-
-            app.UseCors("Development");
 
             return app;
         }

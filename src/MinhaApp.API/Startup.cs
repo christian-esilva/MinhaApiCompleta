@@ -25,6 +25,8 @@ namespace MinhaApp.API
                     Configuration.GetConnectionString("DefaultConnection")));
                 services.AddAutoMapper(typeof(Startup));
 
+            services.AddIdentityConfiguration(Configuration);
+
             services.AddAutoMapper(typeof(Startup));
 
             services.WebApiConfig();
@@ -36,13 +38,16 @@ namespace MinhaApp.API
         {
             if (env.IsDevelopment())
             {
+                app.UseCors("Development");
                 app.UseDeveloperExceptionPage();
             }
             else
             {
+                app.UseCors("Production");
                 app.UseHsts();
             }
 
+            app.UseAuthentication();
             app.UseMvcConfiguration();
         }
     }

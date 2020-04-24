@@ -2,15 +2,17 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using MinhaApp.API.Extensoes;
 using MinhaApp.API.ViewModels;
 using MinhaApp.Negocios.Entidades;
 using MinhaApp.Negocios.Interfaces;
 
 namespace MinhaApp.API.Controllers
 {
+    [Authorize]
     [Route("api/fornecedores")]
-    [ApiController]
     public class FornecedorController : MainController
     {
         private readonly IFornecedorRepositorio _fornecedorRepositorio;
@@ -19,8 +21,7 @@ namespace MinhaApp.API.Controllers
         private readonly IMapper _mapper;
 
         public FornecedorController(IFornecedorRepositorio fornecedorRepositorio, IMapper mapper, IFornecedorServico fornecedorServico, 
-            INotificador notificador,
-            IEnderecoRepositorio enderecoRepositorio) :base(notificador)
+            INotificador notificador, IUser user, IEnderecoRepositorio enderecoRepositorio) :base(notificador, user)
         {
             _fornecedorRepositorio = fornecedorRepositorio;
             _fornecedorServico = fornecedorServico;
@@ -28,6 +29,7 @@ namespace MinhaApp.API.Controllers
             _mapper = mapper;
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IEnumerable<FornecedorViewModel>> ObterTodos()
         {
@@ -44,6 +46,7 @@ namespace MinhaApp.API.Controllers
             return fornecedor;
         }
 
+        [ClaimsAuthorize("Fornecedor","Adicionar")]
         [HttpPost]
         public async Task<ActionResult<FornecedorViewModel>> Adicionar(FornecedorViewModel fornecedorViewModel)
         {
@@ -54,6 +57,7 @@ namespace MinhaApp.API.Controllers
             return CustomResponse(fornecedorViewModel);
         }
 
+        [ClaimsAuthorize("Fornecedor", "Atualizar")]
         [HttpPut("{id:guid}")]
         public async Task<ActionResult<FornecedorViewModel>> Atualizar(Guid id, FornecedorViewModel fornecedorViewModel)
         {
@@ -70,6 +74,7 @@ namespace MinhaApp.API.Controllers
             return CustomResponse(fornecedorViewModel);
         }
 
+        [ClaimsAuthorize("Fornecedor", "Excluir")]
         [HttpDelete("{id:guid}")]
         public async Task<ActionResult<FornecedorViewModel>> Excluir(Guid id)
         {
@@ -88,6 +93,7 @@ namespace MinhaApp.API.Controllers
             return (_mapper.Map<EnderecoViewModel>(await _enderecoRepositorio.ObterPorId(id)));
         }
 
+        [ClaimsAuthorize("Fornecedor", "Atualizar")]
         [HttpPut("atualizar-endereco/{id:guid}")]
         public async Task<IActionResult> AtualizarEndereco(Guid id, EnderecoViewModel enderecoViewModel)
         {

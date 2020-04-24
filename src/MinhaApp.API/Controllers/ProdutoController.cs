@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
@@ -20,8 +19,9 @@ namespace MinhaApp.API.Controllers
         private readonly IProdutoServico _produtoServico;
         private readonly IMapper _mapper;
 
-        public ProdutoController(IProdutoRepositorio produtoRepositorio, IProdutoServico produtoServico, IMapper mapper, INotificador notificador)
-            : base(notificador)
+        public ProdutoController(IProdutoRepositorio produtoRepositorio, IProdutoServico produtoServico, IMapper mapper, 
+            INotificador notificador, IUser user)
+            : base(notificador, user)
         {
             _produtoRepositorio = produtoRepositorio;
             _produtoServico = produtoServico;
